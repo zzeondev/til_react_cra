@@ -28,6 +28,9 @@ npx create-react-app@latest .
 git remote add origin  주소
 ```
 
+- 프로젝트 생성후 npm run start 실행되는지 확인
+- ctrl+c npm 닫기 (서버 죽이기)
+
 ## 4. 생성된 파일 살펴보기
 
 - 만약에 회사에 가면 기존 소스를 fork 받으실 겁니다.
@@ -223,7 +226,7 @@ npx eslint --init
 npm i prettier -D
 ```
 
-#### 5.2.2. `.prettierrc.json`
+#### 5.2.2. `.prettierrc.json` 파일생성
 
 ```json
 {
@@ -245,7 +248,8 @@ npm i prettier -D
 #### 5.3.1. npm 설치
 
 ```bash
-npm i  eslint-config-prettier -D
+npm i  eslint-config-prettier -D 
+
 npm i  eslint-plugin-prettier -D --force
 ```
 
@@ -260,7 +264,7 @@ npm i  eslint-plugin-prettier -D --force
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended" // 쉼표로 이어주기
   ],
   "parserOptions": {
     "ecmaFeatures": {
