@@ -1,0 +1,22 @@
+.title {
+  color: aquamarine;
+  font-size: 40px;
+  text-align: center;
+}
+.content {
+  position: relative;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 500;
+  color: aqua;
+}
+.slide {
+  background-color: antiquewhite;
+  font-weight: 500;
+  margin: 20px 0;
+}
+.notice {
+  background-color: blue;
+  color: #fff;
+  padding: 10px 0;
+}

@@ -405,7 +405,7 @@ import styles from "./StartPage.moudle.scss";
 import React from "react";
 
 function Header() {
-  //js 코드자리
+  //js 코딩자리
   const title = "웹 서비스 제목";
   const version = 0.5;
   function say() {
@@ -582,3 +582,24 @@ function Header() {
 
 export default Header;
 ```
+
+# CSS-in-JS
+
+- Styled Component
+- Emotion
+
+## 1. 환경설정
+
+```bash
+#한줄로 한번에 설치 - 권장
+npm i @emotion/react @emotion/styled
+
+#두번에 나눠서 설치
+npm i @emotion/react
+npm i @emotion/styled
+```
+
+## 2. 왜 필요한가?
+
+- 태그 처럼 생겼다. (내가 만든 태그)
+- 태그가 내용을 설명하도록 구성한다.
