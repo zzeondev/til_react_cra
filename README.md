@@ -587,11 +587,12 @@ export default Header;
 
 - Styled Component
 - Emotion
+- https://velog.io/@favorcho/Emotion-소개-및-사용하기
 
 ## 1. 환경설정
 
 ```bash
-#한줄로 한번에 설치 - 권장
+#한줄로 한번에 설치 - 권장(띄어쓰기 주의)
 npm i @emotion/react @emotion/styled
 
 #두번에 나눠서 설치
@@ -601,5 +602,687 @@ npm i @emotion/styled
 
 ## 2. 왜 필요한가?
 
-- 태그 처럼 생겼다. (내가 만든 태그)
+- 태그 처럼 생겼다. (내가 만든 태그 : 시멘틱 처럼 이해하자.)
 - 태그가 내용을 설명하도록 구성한다.
+- CSS 같이 배치가능합니다. (VSCode 플러그인 : `vscode-styled-components`)
+- props 도 전달해서 다양한 결과를 보여줄 수 있습니다.
+- props 는 객체라서 `.`으로 접근 가능
+- props 는 객체라서 `객체 구조 분해 할당` 해서 사용할 수 있음.
+- 확장 즉 Extends 가 가능합니다.
+- export 를 통해서 외부로 내보낼 수 있습니다.
+- import 해서 사용할 수 있습니다.
+
+```jsx
+// Emotion 기본형과 Props 전달의 예제
+import React from "react";
+import "../css/Slide.css";
+import styled from "@emotion/styled";
+function Slide() {
+  // js 자리
+
+  // Emotion 관련
+  // 기본형
+  const BasicButton = styled.button``;
+  // css 추가형
+  const BasicUpButton = styled.button`
+    background-color: yellowgreen;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    /* SCSS 적용 가능 */
+    transition: all 0.5s;
+    &:hover {
+      background-color: skyblue;
+    }
+  `;
+  // props 로 동적인 즉, 실시간으로 변경하기
+  const Box = styled.div`
+    background-color: ${props => props.bg};
+    width: ${props => props.width};
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: ${props => props.m}px 0;
+    border: ${props => props.b}px solid ${props => props.cc};
+  `;
+  // jsx 자리
+  return (
+    <div style={{ padding: "30px" }}>
+      <h1>CSS-in-JS 예제</h1>
+      <BasicButton>기본버튼</BasicButton>
+      <br />
+      <br />
+      <BasicUpButton>CSS적용버튼</BasicUpButton>
+      <br />
+      <br />
+
+      <Box bg="red" width="200px" b="5" cc="orange" m="50">
+        첫번째 박스
+      </Box>
+
+      <Box bg="blue" b="20" cc="green">
+        두번째 박스
+      </Box>
+    </div>
+  );
+}
+
+export default Slide;
+```
+
+```jsx
+// 기본 스타일 확장
+import React from "react";
+import "../css/Slide.css";
+import styled from "@emotion/styled";
+function Slide() {
+  // js 자리
+  const BasicButton = styled.button`
+    background-color: orange;
+    font-size: 50px;
+    border-radius: 20px;
+    padding: 20px;
+  `;
+  const DangerButton = styled(BasicButton)`
+    background-color: red;
+    color: #fff;
+  `;
+  // jsx 자리
+  return (
+    <div style={{ padding: "30px" }}>
+      <h1>CSS-in-JS 예제</h1>
+      <BasicButton>기본버튼</BasicButton>
+      <DangerButton>위험한 경고 버튼</DangerButton>
+    </div>
+  );
+}
+
+export default Slide;
+```
+
+## 3. 재활용 컴포넌트로 제작하기
+
+- 1차 버전
+
+```jsx
+import React from "react";
+import "../css/Slide.css";
+import styled from "@emotion/styled";
+function Slide() {
+  // js 자리
+  const Button = styled.button`
+    background-color: ${props =>
+      props.variant === "primary"
+        ? "#007bff"
+        : props.variant === "danger"
+          ? "#dc3545"
+          : "#6c757d"};
+
+    color: white;
+    padding: ${props => (props.size === "lg" ? "12px 24px" : "8px 16px")};
+    border: none;
+    border-radius: 4px;
+    font-size: ${props => (props.size === "lg" ? "18px" : "14px")};
+    cursor: pointer;
+    margin: 5px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  `;
+  // jsx 자리
+  return (
+    <div style={{ padding: "30px" }}>
+      <h1>CSS-in-JS 예제</h1>
+
+      <Button variant="primary" size="lg">
+        기본버튼 : large 버튼
+      </Button>
+      <Button variant="primary">기본버튼</Button>
+
+      <br />
+      <br />
+
+      <Button variant="danger" size="lg">
+        경고버튼 : large 경고버튼
+      </Button>
+      <Button variant="danger">경고</Button>
+    </div>
+  );
+}
+
+export default Slide;
+```
+
+- 2차 버전
+
+```js
+import React from "react";
+import "../css/Slide.css";
+import styled from "@emotion/styled";
+function Slide() {
+  // js 자리
+  const Button = styled.button`
+    background-color: ${props => {
+      // 비활성화 된 경우
+      if (props.disabled) return "#ccc";
+
+      switch (props.variant) {
+        case "primary":
+          return "#007bff";
+        case "danger":
+          return "#dc3545";
+        case "success":
+          return "#28a745";
+        default:
+          return "#6c757d";
+      }
+    }};
+
+    color: white;
+    padding: ${props => (props.size === "lg" ? "12px 24px" : "8px 16px")};
+    border: none;
+    border-radius: 4px;
+    font-size: ${props => (props.size === "lg" ? "18px" : "14px")};
+    cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
+    margin: 5px;
+    opacity: ${props => (props.disabled ? 0.6 : 1.0)};
+
+    &:hover {
+      opacity: ${props => (props.disabled ? 0.6 : 0.8)};
+    }
+  `;
+  // jsx 자리
+  return (
+    <div style={{ padding: "30px" }}>
+      <h1>CSS-in-JS 예제</h1>
+
+      <Button size="lg">기본버튼 : large 버튼</Button>
+      <Button>기본버튼</Button>
+
+      <br />
+      <br />
+
+      <Button variant="primary" size="lg" disabled>
+        기본버튼 : disabled 버튼
+      </Button>
+      <Button variant="primary" disabled>
+        disabled 기본버튼
+      </Button>
+
+      <br />
+      <br />
+
+      <Button variant="primary" size="lg">
+        기본버튼 : large 버튼
+      </Button>
+      <Button variant="primary">기본버튼</Button>
+
+      <br />
+      <br />
+
+      <Button variant="danger" size="lg">
+        경고버튼 : large 경고버튼
+      </Button>
+      <Button variant="danger">경고</Button>
+
+      <br />
+      <br />
+
+      <Button variant="success" size="lg">
+        경고버튼 : large 경고버튼
+      </Button>
+      <Button variant="success">경고</Button>
+    </div>
+  );
+}
+
+export default Slide;
+```
+
+- 3차 최종버전(components/ui폴더/Button.jsx)
+
+```js
+import React, { Children } from "react";
+import styled from "@emotion/styled";
+
+function Button(props) {
+  // js 자리
+  const Button = styled.button`
+    background-color: ${props => {
+      // 비활성화 된 경우
+      if (props.disabled) return "#ccc";
+
+      switch (props.variant) {
+        case "primary":
+          return "#007bff";
+        case "danger":
+          return "#dc3545";
+        case "success":
+          return "#28a745";
+        default:
+          return "#6c757d";
+      }
+    }};
+
+    color: white;
+    padding: ${props => (props.size === "lg" ? "12px 24px" : "8px 16px")};
+    border: none;
+    border-radius: 4px;
+    font-size: ${props => (props.size === "lg" ? "18px" : "14px")};
+    cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
+    margin: 5px;
+    opacity: ${props => (props.disabled ? 0.6 : 1.0)};
+
+    &:hover {
+      opacity: ${props => (props.disabled ? 0.6 : 0.8)};
+    }
+  `;
+  // jsx 자리
+
+  return (
+    <Button variant={props.variant} size={props.size} disabled={props.disabled}>
+      {props.children}
+    </Button>
+  );
+}
+
+export default Button;
+```
+
+- 추천합니다. (props 는 객체 구조 분해 할당 권장)
+
+```js
+import React from "react";
+import styled from "@emotion/styled";
+
+function Button({
+  children,
+  variant = "default",
+  size = "md",
+  disabled = false,
+}) {
+  // js 자리
+  const Button = styled.button`
+    background-color: ${props => {
+      // 비활성화 된 경우
+      if (props.disabled) return "#ccc";
+
+      switch (props.variant) {
+        case "primary":
+          return "#007bff";
+        case "danger":
+          return "#dc3545";
+        case "success":
+          return "#28a745";
+        default:
+          return "#6c757d";
+      }
+    }};
+
+    color: white;
+    padding: ${props => (props.size === "lg" ? "12px 24px" : "8px 16px")};
+    border: none;
+    border-radius: 4px;
+    font-size: ${props => (props.size === "lg" ? "18px" : "14px")};
+    cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
+    margin: 5px;
+    opacity: ${props => (props.disabled ? 0.6 : 1.0)};
+
+    &:hover {
+      opacity: ${props => (props.disabled ? 0.6 : 0.8)};
+    }
+  `;
+  // jsx 자리
+
+  return (
+    <Button variant={variant} size={size} disabled={disabled}>
+      {children}
+    </Button>
+  );
+}
+
+export default Button;
+```
+
+- 응용
+
+```js
+import styled from "@emotion/styled";
+import React from "react";
+
+function Tag({ children, variant = "default", rounded = false, size = "md" }) {
+  // js 자리
+  const StyleTag = styled.span`
+    display: inline-block;
+    background-color: ${props => {
+      switch (props.variant) {
+        case "success":
+          return "#28a745";
+        case "warning":
+          return "#ffc107";
+        case "danger":
+          return "#dc3545";
+        case "info":
+          return "#17a2b8";
+        default:
+          return "#6c757d";
+      }
+    }};
+    color: #fff;
+    border-radius: ${props => (props.rounded ? "10px" : "3px")};
+
+    padding: ${props => (props.size === "lg" ? "6px 12px" : "4px 8px")};
+    font-size: ${props => (props.size === "lg" ? "14px" : "12px")};
+    margin-right: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  `;
+
+  // jsx 자리
+  return (
+    <StyleTag variant={variant} rounded={rounded} size={size}>
+      # {children}
+    </StyleTag>
+  );
+}
+
+export default Tag;
+```
+
+- Avart 예제
+
+```jsx
+import styled from "@emotion/styled";
+import React from "react";
+
+function Avatar({
+  src = "https://i.pravatar.cc/100",
+  alt = "avatar",
+  size = "40px",
+  shadow = true,
+}) {
+  // js 자리
+  const StyledAvatar = styled.img`
+    border-radius: 50%;
+    width: ${props => props.size};
+    height: ${props => props.size};
+    object-fit: cover;
+    border: 3px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, ${props => (props.shadow ? 0.3 : 0)});
+  `;
+
+  // jsx 자리
+  return <StyledAvatar src={src} alt={alt} size={size} shadow={shadow} />;
+}
+
+export default Avatar;
+```
+
+- Toast 샘플
+
+```js
+import styled from "@emotion/styled";
+import React from "react";
+
+function Toast({ message = "Please Message", bg = "#ccc" }) {
+  // js 자리
+  const StyledToast = styled.div`
+    z-index: 999999;
+    position: fixed;
+    bottom: 120px;
+    right: 120px;
+    background-color: ${props => props.bg};
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  `;
+  // jsx 자리
+  return <StyledToast bg={bg}>{message}</StyledToast>;
+}
+
+export default Toast;
+```
+
+- Alert 샘플
+
+```js
+import styled from "@emotion/styled";
+import React from "react";
+
+function Alert({ children, type = "default" }) {
+  // js 자리
+  const StyledAlert = styled.div`
+    background-color: ${props => {
+      switch (props.type) {
+        case "success":
+          return "#d4edda";
+        case "error":
+          return "#f8d7da";
+        case "warning":
+          return "#fff3cd";
+        case "info":
+          return "#d1ecf1";
+        default:
+          return "#e2e3e5";
+      }
+    }};
+
+    color: ${props => {
+      switch (props.type) {
+        case "success":
+          return "#155724";
+        case "error":
+          return "#721c24";
+        case "warning":
+          return "#856404";
+        case "info":
+          return "#0c5460";
+        default:
+          return "#383d41";
+      }
+    }};
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin: 10px 0;
+    border: 1px solid transparent;
+  `;
+
+  // jsx 자리
+  return <StyledAlert type={type}>{children}</StyledAlert>;
+}
+
+export default Alert;
+```
+
+- Chip 예제
+
+```js
+import styled from "@emotion/styled";
+import React from "react";
+
+function Chip({ label = "Label" }) {
+  // js 자리
+  const StyledChhip = styled.div`
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    background-color: #e0e0e0;
+    border-radius: 16px;
+    font-size: 14px;
+    margin: 4px;
+
+    span {
+      margin-right: 8px;
+    }
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      color: #555;
+    }
+  `;
+  // jsx 자리
+  return (
+    <StyledChhip>
+      <span>{label}</span>
+      <button>x</button>
+    </StyledChhip>
+  );
+}
+
+export default Chip;
+```
+
+- Modal 예제
+
+```js
+import styled from "@emotion/styled";
+import React from "react";
+
+function Modal({ children }) {
+  //js 자리
+  const Overlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+  const ModalBox = styled.div`
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    min-width: 400px;
+    min-height: 200px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  `;
+  // jsx 자리
+  return (
+    <Overlay>
+      <ModalBox>{children}</ModalBox>
+    </Overlay>
+  );
+}
+
+export default Modal;
+```
+
+- ProgressBar 예제
+
+```js
+import styled from "@emotion/styled";
+import React from "react";
+
+function ProgressBar({ percent = 0, color = "#000" }) {
+  // js 자리
+  const BarWrapper = styled.div`
+    background-color: #eee;
+    height: 16px;
+    width: 100%;
+    border-radius: 8px;
+    margin: 10px 0;
+    overflow: hidden;
+  `;
+  const BarInner = styled.div`
+    height: 100%;
+    background-color: ${props => props.color};
+    width: ${props => props.percent}%;
+    transition: all 0.5s;
+  `;
+
+  // jsx 자리
+  return (
+    <BarWrapper>
+      <BarInner percent={percent} color={color} />
+    </BarWrapper>
+  );
+}
+
+export default ProgressBar;
+```
+
+- Skeleton 예제 : https://cssgradient.io/
+
+```jsx
+import { keyframes } from "@emotion/react";
+import styled from "@emotion/styled";
+import React from "react";
+
+function Skeleton({ width = "100%", height = "20px" }) {
+  // js 코딩자리
+  // ketframes css 애니메이션
+  const mov = keyframes`
+  0%{background-position: -400px 0}
+  100%{background-position: 400px 0}
+  `;
+  const SkeletonBox = styled.div`
+    width: ${props => props.width};
+    height: ${props => props.height};
+    border-radius: 4px;
+    background: linear-gradient(90deg, #eeeeee 25%, #dddddd 37%, #eeeeee 63%);
+    background-size: 800px 100%;
+    animation: ${mov} 1.2s infinite linear;
+    margin: 10px 0;
+  `;
+
+  // jsx 코딩자리
+  return <SkeletonBox width={width} height={height} />;
+}
+
+export default Skeleton;
+```
+
+- Tooltip 예제
+
+```js
+import styled from "@emotion/styled";
+import React from "react";
+
+function Tooltip({ children, text }) {
+  // js 코딩자리
+  const TooltipWrap = styled.div`
+    position: relative;
+    display: inline-block;
+    &:hover .bubble {
+      visibility: visible;
+      opacity: 1;
+    }
+  `;
+  const TooltipBubble = styled.div`
+    position: absolute;
+    left: 50%;
+    bottom: 120%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    background-color: #333;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  `;
+  // jsx 코딩자리
+  return (
+    <TooltipWrap>
+      {children}
+      <TooltipBubble className="bubble">{text}</TooltipBubble>
+    </TooltipWrap>
+  );
+}
+
+export default Tooltip;
+```
