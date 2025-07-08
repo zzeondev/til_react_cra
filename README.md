@@ -1286,3 +1286,300 @@ function Tooltip({ children, text }) {
 
 export default Tooltip;
 ```
+<<<<<<< HEAD
+=======
+
+# JSX 의 조건문
+
+## 1. 기본 문법
+
+- falshy 한 값 종류 : `false, null, undefined, 0, "", NaN`
+- if 문
+
+```js
+if (조건) {
+  // 참일 때 실행
+}
+```
+
+- if ~ else
+
+```js
+if (조건) {
+  // 참일 때 실행
+} else {
+  //거짓일 때
+}
+```
+
+- if ~ else if ~ else
+
+```js
+if (조건) {
+  // 참일 때 실행
+} else if (조건) {
+  // 참일 때 실행
+} else {
+  // 거짓일 때
+}
+```
+
+- 3항연산자
+
+```js
+const res = 조건 ? 참일때 리턴 : 거짓일떼 리턴;
+```
+
+- 논리 연산자
+
+```js
+const res = 조건 && 결과 리턴;
+const res = 조건 || 결과 리턴;
+```
+
+```jsx
+isLogin && <div>결과</div>;
+```
+
+- 옵셔널(`?`) 체이닝(`.`) : `객체?.속성명`
+
+```js
+const user = { age: 10, job: "개발자" };
+const result = user?.age;
+```
+
+- Null 병합 연산자(`??`) : null 또는 undefined 일때만 기본값 사용
+
+```js
+const user = { age: 10, job: "개발자" };
+const result = user.gogo ?? "없어요";
+```
+
+- switch
+
+```js
+switch(결과값){
+  case 비교값1;
+      break;
+  case 비교값2;
+      break;
+  default :
+     break;
+}
+```
+
+## 2. JSX 에서의 활용
+
+- `JS 자리`에 if 문과 switch 문을 사용할 수 있음.
+- `JSX 자리`에 if 문과 switch 문을 사용할 수 없음.
+- if 문과 switch 문 대신에 `3 항 연산자` 가 가장 많이 사용됨.
+- `JSX 자리`에 falshy 한 값은 출력이 안됩니다.
+
+### 2.1. if 문 활용
+
+```jsx
+import React from "react";
+
+// 파일로 만들지 않은 컴포넌트
+function Hi({ isLogin }) {
+  // js 자리
+  if (isLogin) {
+    return <div>반가워요</div>;
+  }
+
+  // jsx 자리
+  return <div>안녕</div>;
+}
+
+function Test() {
+  // js 자리
+  // jsx 자리
+  return <Hi isLogin={true}>Test</Hi>;
+}
+
+export default Test;
+```
+
+### 2.2. jsx 에서 3항 연산자
+
+```jsx
+import React from "react";
+
+// 파일로 만들지 않은 컴포넌트
+function Hi({ isLogin }) {
+  // js 자리
+  if (isLogin) {
+    return <div>반가워요</div>;
+  }
+
+  // jsx 자리
+  return <div>{isLogin ? "반가워요" : "로그인하세요"}</div>;
+}
+
+function Test() {
+  // js 자리
+  // jsx 자리
+  return <Hi isLogin={true}>Test</Hi>;
+}
+
+export default Test;
+```
+
+### 2.3. jsx 에서 && 연산자 활용
+
+```jsx
+import React from "react";
+
+// 파일로 만들지 않은  컴포넌트
+function Hi({ isLogin, msg }) {
+  // js 자리
+  // jsx 자리
+  return (
+    <div>
+      {isLogin ? "반가워요" : "로그인하세요."}
+      <div>{msg && "메시지가 있습니다."}</div>
+    </div>
+  );
+}
+
+function Test() {
+  // js 자리
+  // jsx 자리
+  return (
+    <Hi isLogin={true} msg={"새로운메시지"}>
+      Test
+    </Hi>
+  );
+}
+
+export default Test;
+```
+
+### 2.4. jsx 에서 ?. 연산자 활용
+
+- `객체?.속성명`
+- 객체가 null 이거나 undefined 이면 리액트 오류
+- 복잡한 if 문 대신 옵셔널 체이닝을 활용함.
+
+```jsx
+import React from "react";
+
+// 파일로 만들지 않은 컴포넌트
+function Hi({ isLogin, msg, user }) {
+  // js 자리
+  // jsx 자리
+  return (
+    <div>
+      {isLogin ? "반가워요" : "로그인하세요"}
+      <div>{msg && "메시지가 있습니다."}</div>
+      <div>
+        {user?.name} : {user?.age ? user?.age : "나이가 없어요"}
+      </div>
+      <div>
+        {user?.name} : {user?.age || "나이가 없어요"}
+      </div>
+    </div>
+  );
+}
+
+function Test() {
+  // js 자리
+  // jsx 자리
+  return (
+    <Hi isLogin={true} msg={"새로운메시지"} user={{ name: "홍길동" }}>
+      Test
+    </Hi>
+  );
+}
+
+export default Test;
+```
+
+# JSX 의 반복문
+
+## 1. map 의 이해
+
+- 일반적으로 가장 많이 사용함.
+- 컴포넌트 또는 html 태그를 반복 출력시 활용
+- 반드시 대상은 `배열`입니다.
+- 반드시 `key 속성 즉, props 가 있어야 함.`
+
+```jsx
+import React, { useState } from "react";
+
+// 파일로 만들지 않은  컴포넌트
+function Hi({ data }) {
+  // js 자리
+  // jsx 자리
+  return <div>{data?.name}님 안녕</div>;
+}
+
+function Test() {
+  // js 자리
+  const [userData, setUserData] = useState([
+    { name: "hong", age: 10 },
+    { name: "park", age: 15 },
+    { name: "son", age: 18 },
+    { name: "kim", age: 25 },
+  ]);
+  // jsx 자리
+  return (
+    <div>
+      {userData.map(function (item, index) {
+        return <Hi key={index} data={item}></Hi>;
+      })}
+    </div>
+  );
+}
+
+export default Test;
+```
+
+## 2. filter 의 이해
+
+- 대상을 반드시 `배열`입니다.
+- 조건에 맞는 것만 jsx로 출력이 가능합니다.
+
+```jsx
+import React, { useState } from "react";
+
+// 파일로 만들지 않은  컴포넌트
+function Hi({ data }) {
+  // js 자리
+  // jsx 자리
+  return <div>{data?.name}님 안녕</div>;
+}
+
+function Test() {
+  // js 자리
+  const [userData, setUserData] = useState([
+    { name: "hong", age: 10 },
+    { name: "park", age: 15 },
+    { name: "son", age: 18 },
+    { name: "kim", age: 25 },
+  ]);
+
+  // jsx 자리
+  return (
+    <>
+      <h2>회원전체 명단: map 활용</h2>
+      <div>
+        {userData.map(function (item, index) {
+          return <Hi key={index} data={item}></Hi>;
+        })}
+      </div>
+      <h2>연령이 10대인 회원 명단 : filter 활용</h2>
+      <div>
+        {userData
+          .filter((item, index) => item.age < 20)
+          .map((item, index) => (
+            <Hi data={item} key={index}></Hi>
+          ))}
+      </div>
+    </>
+  );
+}
+
+export default Test;
+```
+>>>>>>> 19dffb5 (Recommit after index rebuild)
