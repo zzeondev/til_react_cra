@@ -1493,7 +1493,7 @@ function Test() {
 export default Test;
 ```
 
-# JSX 의 반복문
+# JSX 의 반복문.
 
 ## 1. map 의 이해
 
