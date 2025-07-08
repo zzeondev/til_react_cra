@@ -1286,8 +1286,6 @@ function Tooltip({ children, text }) {
 
 export default Tooltip;
 ```
-<<<<<<< HEAD
-=======
 
 # JSX 의 조건문
 
@@ -1582,4 +1580,3 @@ function Test() {
 
 export default Test;
 ```
->>>>>>> 19dffb5 (Recommit after index rebuild)
