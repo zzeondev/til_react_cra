@@ -1465,6 +1465,7 @@ import React from "react";
 // 파일로 만들지 않은 컴포넌트
 function Hi({ isLogin, msg, user }) {
   // js 자리
+  
   // jsx 자리
   return (
     <div>
