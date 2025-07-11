@@ -3,11 +3,11 @@ import React from "react";
 
 function Chip({ label = "Label" }) {
   // js 자리
-  const StyledChhip = styled.div`
+  const StyledChip = styled.div`
     display: inline-flex;
     align-items: center;
     padding: 6px 12px;
-    background: #e0e0e0;
+    background-color: #e0e0e0;
     border-radius: 16px;
     font-size: 14px;
     margin: 4px;
@@ -25,10 +25,10 @@ function Chip({ label = "Label" }) {
   `;
   // jsx 자리
   return (
-    <StyledChhip>
+    <StyledChip>
       <span>{label}</span>
       <button>x</button>
-    </StyledChhip>
+    </StyledChip>
   );
 }
 

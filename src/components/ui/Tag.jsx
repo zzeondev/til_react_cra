@@ -21,7 +21,6 @@ function Tag({ children, variant = "default", rounded = false, size = "md" }) {
     }};
     color: #fff;
     border-radius: ${props => (props.rounded ? "10px" : "3px")};
-
     padding: ${props => (props.size === "lg" ? "6px 12px" : "4px 8px")};
     font-size: ${props => (props.size === "lg" ? "14px" : "12px")};
     margin-right: 6px;

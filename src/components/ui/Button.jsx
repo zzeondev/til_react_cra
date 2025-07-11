@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-
 function Button({
   children,
   variant = "default",
@@ -39,7 +38,6 @@ function Button({
     }
   `;
   // jsx 자리
-
   return (
     <Button variant={variant} size={size} disabled={disabled}>
       {children}

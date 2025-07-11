@@ -2,15 +2,17 @@ import styled from "@emotion/styled";
 import React from "react";
 
 function Tooltip({ children, text }) {
-  // js 코딩자리
+  // js 자리
   const TooltipWrap = styled.div`
     position: relative;
     display: inline-block;
+
     &:hover .bubble {
       visibility: visible;
       opacity: 1;
     }
   `;
+
   const TooltipBubble = styled.div`
     position: absolute;
     left: 50%;
@@ -26,7 +28,7 @@ function Tooltip({ children, text }) {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
   `;
-  // jsx 코딩자리
+  // jsx 자리
   return (
     <TooltipWrap>
       {children}

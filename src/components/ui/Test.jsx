@@ -3,13 +3,12 @@ import styled from "@emotion/styled";
 import React from "react";
 
 function Skeleton({ width = "100%", height = "20px" }) {
-  // js 코딩자리
+  // js 자리
   // keyframes css 애니메이션
   const mov = keyframes`
-    0% { background-position: -400px 0}
-    100% { background-position: 400px 0}
+  0% { background-position: -400px 0}
+  100%{background-position: 400px 0}
   `;
-
   const SkeletonBox = styled.div`
     width: ${props => props.width};
     height: ${props => props.height};
@@ -20,7 +19,7 @@ function Skeleton({ width = "100%", height = "20px" }) {
     margin: 10px 0;
   `;
 
-  // jsx 코딩자리
+  // jsx 자리
   return <SkeletonBox width={width} height={height} />;
 }
 

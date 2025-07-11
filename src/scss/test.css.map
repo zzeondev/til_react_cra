@@ -1,0 +1,1 @@
+{"version":3,"sources":["test.scss","_mixins.scss","test.css","_val.scss","_color.scss"],"names":[],"mappings":"AAMA;EACE,kBAAA;ECNA,aAAA;EACA,uBAAA;EACA,mBAAA;ACEF;AFIE;ECRA,aAAA;EACA,uBAAA;EACA,mBAAA;EAGA,2BAAA;EDME,YGZQ;EHaR,aGZS;ADYb;AFCI;EACE,cAAA;AECN;AFAM;EACE,qBIjBF;AFmBN;AFAM;EACE,cAAA;AEER","file":"test.css"}

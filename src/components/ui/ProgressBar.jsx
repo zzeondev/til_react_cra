@@ -17,7 +17,6 @@ function ProgressBar({ percent = 0, color = "#000" }) {
     width: ${props => props.percent}%;
     transition: all 0.5s;
   `;
-
   // jsx 자리
   return (
     <BarWrapper>

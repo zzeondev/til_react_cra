@@ -12,7 +12,6 @@ const FormContainer = styled.div`
   background-color: #fafafa;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
-
 const ErrorText = styled.div`
   color: #f00;
   margin-top: 10px;
@@ -22,7 +21,7 @@ const SubmitButton = styled.button`
   width: 100%;
   padding: 15px;
   max-width: 100px;
-  margin: 30px auto;
+  margin: 0px auto;
   display: block;
   border-radius: 15px;
   background-color: #007bff;
@@ -57,7 +56,7 @@ function LoginForm({ formData, errorMessage, handleChange, handleSubmit }) {
           name="user_email"
           id="user_email"
           value={formData.user_email}
-          placeholder="이메일을 입력하세요"
+          placeholder="이메일을 입력하세요."
           onChange={handleChange}
         />
         <InputField
@@ -72,7 +71,6 @@ function LoginForm({ formData, errorMessage, handleChange, handleSubmit }) {
 
         <SubmitButton type="submit">로그인</SubmitButton>
       </form>
-
       <ErrorText>{errorMessage}</ErrorText>
     </FormContainer>
   );

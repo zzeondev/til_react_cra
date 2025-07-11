@@ -10,8 +10,9 @@ function PostList({ id, title, body, userid }) {
     border: 6px solid #ffb703;
     margin: 20px;
     padding: 20px;
-    transition: all 0.2s;
     cursor: pointer;
+
+    transition: all 0.2s;
     &:hover {
       transform: translateY(-10px);
     }
@@ -39,7 +40,7 @@ function PostList({ id, title, body, userid }) {
         {id}.{title}
       </PostTitle>
       <PostBody>{body}</PostBody>
-      <PostUser>User:{userid}</PostUser>
+      <PostUser>User: {userid}</PostUser>
     </PostCard>
   );
 }

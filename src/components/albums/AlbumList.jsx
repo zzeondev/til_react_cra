@@ -10,8 +10,9 @@ function AlbumList({ userid, id, title }) {
     border: 6px solid #ffb703;
     margin: 20px;
     padding: 20px;
-    transition: all 0.2s;
     cursor: pointer;
+
+    transition: all 0.2s;
     &:hover {
       transform: translateY(-10px);
     }
@@ -32,7 +33,7 @@ function AlbumList({ userid, id, title }) {
       <AlbumTitle>
         {id}.{title}
       </AlbumTitle>
-      <AlbumUser>User:{userid}</AlbumUser>
+      <AlbumUser>User: {userid}</AlbumUser>
     </AlbumCard>
   );
 }

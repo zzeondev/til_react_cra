@@ -20,11 +20,12 @@ function Posts() {
   // 데이터를 컴포넌트로 출력하는 함수
   function makePostList() {
     let list = [];
-    list = postsArr.map(function (요소, index) {
-      return <PostList key={index}></PostList>;
+    list = postsArr.map(function (요소, 인덱스) {
+      return <PostList key={인덱스}></PostList>;
     });
     return list;
   }
+
   function resetList() {
     setPostsArr([]);
   }
@@ -38,14 +39,14 @@ function Posts() {
         <button onClick={resetList}>목록초기화</button>
       </h1>
       <div>
-        {postsArr.map(function (요소, index) {
+        {postsArr.map(function (요소, 인덱스) {
           return (
             <PostList
               id={요소.id}
               title={요소.title}
               body={요소.body}
               userid={요소.userId}
-              key={index}
+              key={인덱스}
             ></PostList>
           );
         })}

@@ -14,6 +14,7 @@ function Toast({ message = "Please Message", bg = "#ccc" }) {
     border-radius: 8px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
   `;
+
   // jsx 자리
   return <StyledToast bg={bg}>{message}</StyledToast>;
 }

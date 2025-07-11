@@ -18,6 +18,7 @@ html {
 }
 body {
 }
+
 .box {
-  background-color: hotpink;
+  background-color: hotpink !important;
 }

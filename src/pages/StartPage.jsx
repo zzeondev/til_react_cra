@@ -2,7 +2,8 @@ import React from "react";
 // css
 // import "../css/StartPage.css"
 // import styles from "../css/StartPage.module.css";
-import styles from "./StartPage.moudle.scss";
+import styles from "./StartPage.module.scss";
+
 // components
 import Header from "../components/Header";
 import Footer from "../components/Footer";
