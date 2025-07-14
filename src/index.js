@@ -7,11 +7,12 @@ import Posts from "./pages/Posts";
 import Albums from "./pages/Albums";
 import Test from "./pages/Test";
 import RegisterPage from "./pages/RegisterPage";
+import Todo from "./pages/Todo";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <div className="wrap">
-    <Test />
+    <Todo />
   </div>,
 );
