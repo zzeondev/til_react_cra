@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Header({ children, company, service, setIsLogin }) {
   return (
-    <header>
+    <header style={{ background: "yellow" }}>
       <div onClick={() => setIsLogin(true)}>로그인 하기</div>
       <div onClick={() => setIsLogin(false)}>로그아웃 하기</div>
       {children}
