@@ -1,13 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Todo from "./Todo";
-import TodoAdd from "./TodoAdd";
-import TodoDetail from "./TodoDetail";
-import TodoEdit from "./TodoEdit";
-import Layout from "../company/Layout";
-import CompanyDetail from "../company/CompanyDetail";
-import CompanyList from "../company/CompanyList";
-import CompanyLocation from "../company/CompanyLocation";
+import LoadingDiv from "../../components/ui/LoadingDiv";
+
+// 제거해야할 기능
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+// import Todo from "./Todo";
+// const TodoPage = lazy(() => import("./Todo"));
+const TodoPage = lazy(() => sleep(1000).then(() => import("./Todo")));
+
+// import TodoAdd from "./TodoAdd";
+const TodoAdd = lazy(() => import("./TodoAdd"));
+
+// import TodoDetail from "./TodoDetail";
+const TodoDetail = lazy(() => import("./TodoDetail"));
+
+// import TodoEdit from "./TodoEdit";
+const TodoEdit = lazy(() => import("./TodoEdit"));
+
+// import Layout from "../company/Layout";
+const Layout = lazy(() => import("../company/Layout"));
+
+// import CompanyDetail from "../company/CompanyDetail";
+const CompanyDetail = lazy(() => import("../company/CompanyDetail"));
+
+// import CompanyList from "../company/CompanyList";
+const CompanyList = lazy(() => import("../company/CompanyList"));
+
+// import CompanyLocation from "../company/CompanyLocation";
+const CompanyLocation = lazy(() => import("../company/CompanyLocation"));
 
 function Index() {
   // js 자리
@@ -84,37 +104,78 @@ function Index() {
         <Routes>
           <Route
             path="/"
-            element={<Todo todoList={todoList} handleDelete={handleDelete} />}
+            // element={<Todo todoList={todoList} handleDelete={handleDelete} />}
+            element={
+              <Suspense fallback={<LoadingDiv />}>
+                <TodoPage todoList={todoList} handleDelete={handleDelete} />
+              </Suspense>
+            }
           />
           <Route
             path="/add"
             element={
-              <TodoAdd
-                todo={todo}
-                handleAddChange={handleAddChange}
-                handleAddSubmit={handleAddSubmit}
-              />
+              <Suspense fallback={<LoadingDiv />}>
+                <TodoAdd
+                  todo={todo}
+                  handleAddChange={handleAddChange}
+                  handleAddSubmit={handleAddSubmit}
+                />
+              </Suspense>
             }
           />
           <Route
             path="/detail/:id"
-            element={<TodoDetail todoList={todoList} />}
+            element={
+              <Suspense fallback={<LoadingDiv />}>
+                <TodoDetail todoList={todoList} />
+              </Suspense>
+            }
           />
           <Route
             path="/edit"
             element={
-              <TodoEdit
-                todoList={todoList}
-                handleEditSubmit={handleEditSubmit}
-              />
+              <Suspense fallback={<LoadingDiv />}>
+                <TodoEdit
+                  todoList={todoList}
+                  handleEditSubmit={handleEditSubmit}
+                />
+              </Suspense>
             }
           />
 
           {/* 회사소개 */}
-          <Route path="/company" element={<Layout />}>
-            <Route index element={<CompanyDetail />} />
-            <Route path="list" element={<CompanyList />} />
-            <Route path="location" element={<CompanyLocation />} />
+          <Route
+            path="/company"
+            element={
+              <Suspense fallback={<LoadingDiv />}>
+                <Layout />
+              </Suspense>
+            }
+          >
+            <Route
+              index
+              element={
+                <Suspense fallback={<LoadingDiv />}>
+                  <CompanyDetail />
+                </Suspense>
+              }
+            />
+            <Route
+              path="list"
+              element={
+                <Suspense fallback={<LoadingDiv />}>
+                  <CompanyList />
+                </Suspense>
+              }
+            />
+            <Route
+              path="location"
+              element={
+                <Suspense fallback={<LoadingDiv />}>
+                  <CompanyLocation />
+                </Suspense>
+              }
+            />
           </Route>
         </Routes>
       </Router>
