@@ -10,9 +10,13 @@ import {
   TodoItem,
   TodoListMessage,
 } from "./Todo.style";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Todo({ todoList, handleDelete }) {
+  const { pathname, search, state } = useLocation();
+  console.log(pathname); //     /company/list
+  console.log(search); //
+  console.log(state); //  null
   return (
     <Container>
       <TodoButtonWrap>
