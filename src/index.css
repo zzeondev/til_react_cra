@@ -1,13 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
-/* 글꼴 설정 */
-@font-face {
-  font-family: "ddag";
-  src: url("./assets/ddag.ttf");
-}
-@font-face {
-  font-family: "chab";
-  src: url("./assets/chab.ttf");
-}
+
 * {
   margin: 0;
   padding: 0;
