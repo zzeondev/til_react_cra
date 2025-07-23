@@ -19,6 +19,7 @@
   "rules": {
     "no-unused-vars": "off",
     "react/prop-types": "off",
-    "no-undef": "warn"
+    "no-undef": "warn",
+    "react/react-in-jsx-scope": "off"
   }
 }
