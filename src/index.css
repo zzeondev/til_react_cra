@@ -19,7 +19,27 @@ html {
 body {
   font-family: "ddag";
 }
-
-.box {
-  background-color: hotpink !important;
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+.dark {
+  background-color: #121212;
+  color: #fff;
+}
+.light {
+  background-color: #fff;
+  color: #000;
+}
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
